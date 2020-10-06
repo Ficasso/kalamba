@@ -1,5 +1,8 @@
-Recruitment task for kalamba games.
-Java version : 11
-Maven version : 3.6.3
-Project uses local MySql database. To run it you have to create your own database, then table "action"
-and configure values in application.properties. Run KalambaApplication to start.
+Follow that steps:
+1. mvn clean install
+2. mcn clean package
+3. In terminal (project directory) run docker-compose up
+
+Application will be set up on 8080 port. Credentials to access mysql:
+user: user
+password: password

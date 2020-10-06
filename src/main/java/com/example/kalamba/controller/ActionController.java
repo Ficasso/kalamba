@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 
-@Controller
+@RestController
 @RequestMapping(path = "/actions")
 public class ActionController {
 
@@ -17,20 +17,18 @@ public class ActionController {
     private ActionRepository actionRepository;
 
     @PostMapping("/addAction")
-    public String addNewAction(@RequestParam String userId,
+    public void addNewAction(@RequestParam String userId,
                                @RequestParam String gameId,
                                @RequestParam String actionName) {
 
-        if (Arrays.stream(Action.values()).noneMatch(a -> a.name().equals(actionName))) {
-            return "redirect:/actions/invalidAction";
+        if (Arrays.stream(Action.values()).anyMatch(a -> a.name().equals(actionName))) {
+            ActionEntity action = new ActionEntity();
+            action.setUserId(Integer.parseInt(userId));
+            action.setGameId(Integer.parseInt(gameId));
+            var parsedAction = Action.valueOf(actionName);
+            action.setAction(parsedAction);
+            actionRepository.save(action);
         }
-        ActionEntity action = new ActionEntity();
-        action.setUserId(Integer.parseInt(userId));
-        action.setGameId(Integer.parseInt(gameId));
-        var parsedAction = Action.valueOf(actionName);
-        action.setAction(parsedAction);
-        actionRepository.save(action);
-        return "redirect:/actions/allActions";
     }
 
     @GetMapping("/allActions")

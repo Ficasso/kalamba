@@ -1,18 +1,12 @@
 package com.example.kalamba.model;
 
-
-
-import com.example.kalamba.model.Action;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name="actions")
 public class ActionEntity {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private Integer userId;
     private Integer gameId;
@@ -26,7 +20,7 @@ public class ActionEntity {
         this.userId = userId;
     }
 
-    public void setAction(Action action){
+    public void setAction(Action action) {
         this.action = action;
     }
 
